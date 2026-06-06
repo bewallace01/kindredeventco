@@ -34,7 +34,7 @@ Owner: Nezzie / Bailey
 - [ ] Hero image: `loading="eager"` + `fetchpriority="high"`
 
 ## Phase 3 — Functionality
-- [ ] Connect contact form to a real service (Formspree / Netlify Forms / email API)
+- [ ] Connect contact form to a real service (Formspree / Vercel serverless function / email API)
 - [ ] Add spam protection (honeypot or service-native)
 - [ ] Test form submission end-to-end + confirmation email
 - [ ] Add favicon, apple-touch-icon, web manifest
@@ -59,7 +59,7 @@ Owner: Nezzie / Bailey
 - [ ] Confirm `prefers-reduced-motion` behavior
 
 ## Phase 6 — Launch
-- [ ] Choose host (Netlify / Vercel / Cloudflare Pages recommended)
+- [x] Choose host — **Vercel** (connected via GitHub repo `kindredeventco`)
 - [ ] Connect custom domain + SSL
 - [ ] Final link check (no `#` placeholder links remaining)
 - [ ] Confirm font licensing (or keep Pinyon Script stand-in)

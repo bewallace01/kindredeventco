@@ -81,7 +81,7 @@
         return;
       }
       // NOTE: wire this to a real backend / form service (Formspree,
-      // Netlify Forms, etc.) before launch. See docs/TASKS.md.
+      // Vercel serverless function, or email API) before launch. See docs/TASKS.md.
       form.reset();
       if (success) {
         success.classList.add("is-visible");

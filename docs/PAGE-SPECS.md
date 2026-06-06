@@ -174,4 +174,4 @@ One soft detail/studio image in the sidebar for warmth — optional.
 ### CTA placement
 The form *is* the CTA. The nav "Inquire" button is marked current here.
 
-> **Pre-launch:** the form currently runs a front-end demo handler. Connect it to a real service (Formspree, Netlify Forms, or an email endpoint) before going live — see `TASKS.md`.
+> **Pre-launch:** the form currently runs a front-end demo handler. Connect it to a real service (Formspree, a Vercel serverless function, or an email endpoint) before going live — see `TASKS.md`.

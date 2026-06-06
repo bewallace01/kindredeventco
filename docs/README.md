@@ -36,4 +36,4 @@ All text lives directly in the `.html` files. Colors and fonts are controlled by
 This is a complete design build with **placeholder content and gradient image placeholders.** See `CONTENT-GUIDE.md` and `TASKS.md` for everything to swap in (real name, copy, pricing, photos, form backend, domain).
 
 ## Deploy
-Drag the folder into **Netlify**, or connect a repo to **Vercel** / **Cloudflare Pages**. No build command needed — it's a static site.
+Connect this repo to **Vercel** — no build command needed, it's a static site. Config lives in `vercel.json`. Also deployable to Cloudflare Pages or GitHub Pages.

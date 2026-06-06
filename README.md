@@ -29,4 +29,4 @@ See [`docs/`](docs/) — start with [`docs/README.md`](docs/README.md). The laun
 Complete design build with **placeholder content and gradient image placeholders.** See `docs/CONTENT-GUIDE.md` and `docs/TASKS.md` for what to swap in before launch (real name, copy, pricing, photography, form backend, domain).
 
 ## Deploy
-Static site — drag the folder into **Netlify**, or connect this repo to **Vercel** / **Cloudflare Pages**. No build command needed.
+Static site — connect this repo to **Vercel** (no build command needed). Settings live in `vercel.json`. Also works on Cloudflare Pages, GitHub Pages, or any static host.
