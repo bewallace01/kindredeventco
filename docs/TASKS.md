@@ -1,4 +1,4 @@
-# Nezzie Events Website — Task Board
+# Kindred Event Collective Website — Task Board
 
 Status legend: `[ ]` to-do · `[~]` in progress · `[x]` done
 
@@ -16,7 +16,7 @@ Status legend: `[ ]` to-do · `[~]` in progress · `[x]` done
 
 ## Phase 1 — Real Content (blocks launch)
 Owner: Nezzie / Bailey
-- [ ] Finalize real business name & planner name → find/replace "Nezzie Events"
+- [x] Business name finalized: Kindred Event Collective · founder: Nezzie
 - [ ] Replace contact details: email, phone, domain, social URLs
 - [ ] Write/approve final About story
 - [ ] Confirm real stats (weddings count, years, rating)

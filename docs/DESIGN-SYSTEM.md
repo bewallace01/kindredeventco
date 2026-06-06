@@ -1,4 +1,4 @@
-# Nezzie Events — Design System
+# Kindred Event Collective — Design System
 
 The visual foundation for the website, derived directly from the brand board (`assets/brand/brand-board.jpeg`). Every value below is already wired into `css/styles.css` as a CSS custom property, so changing a token in one place updates the whole site.
 

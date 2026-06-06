@@ -1,4 +1,4 @@
-# Nezzie Events — Page Specifications
+# Kindred Event Collective — Page Specifications
 
 For each page: section structure, layout, content hierarchy, UX rationale, imagery style, and CTA placement. These specs match what's built in the HTML and serve as the editing/handoff reference.
 

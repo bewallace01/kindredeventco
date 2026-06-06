@@ -284,6 +284,14 @@ em { font-style: italic; }
   box-shadow: var(--shadow-sm);
   padding-block: var(--space-2xs);
 }
+/* Once scrolled, the bar is light — switch text back to dark for contrast */
+.site-header.is-scrolled .nav__brand { color: var(--ink); text-shadow: none; }
+.site-header.is-scrolled .nav__brand span { color: var(--heather); }
+.site-header.is-scrolled .nav__link { color: var(--charcoal); }
+.site-header.is-scrolled .nav__link:hover,
+.site-header.is-scrolled .nav__link[aria-current="page"] { color: var(--ink); }
+.site-header.is-scrolled .nav__link[aria-current="page"]::after { background: var(--heather); }
+.site-header.is-scrolled .nav__toggle span { background: var(--ink); }
 .nav {
   display: flex;
   align-items: center;
@@ -294,9 +302,11 @@ em { font-style: italic; }
   font-size: var(--step-1);
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: var(--ink);
+  color: var(--cream);            /* light over the hero (transparent header) */
+  text-shadow: 0 1px 12px rgba(44, 42, 51, 0.25);
+  transition: color var(--dur) var(--ease), text-shadow var(--dur) var(--ease);
 }
-.nav__brand span { color: var(--heather); }
+.nav__brand span { color: var(--peach); transition: color var(--dur) var(--ease); }
 .nav__menu {
   display: flex;
   gap: var(--space-md);
@@ -307,15 +317,15 @@ em { font-style: italic; }
   font-size: var(--step--1);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--charcoal);
+  color: rgba(251, 250, 248, 0.9);   /* light over the hero */
   position: relative;
   padding-block: 0.3em;
   transition: color 0.3s var(--ease);
 }
-.nav__link:hover, .nav__link[aria-current="page"] { color: var(--ink); }
+.nav__link:hover, .nav__link[aria-current="page"] { color: var(--cream); }
 .nav__link[aria-current="page"]::after {
   content: ""; position: absolute; left: 0; bottom: -2px;
-  width: 100%; height: 1px; background: var(--heather);
+  width: 100%; height: 1px; background: var(--peach);
 }
 .nav__toggle {
   display: none;
@@ -326,8 +336,8 @@ em { font-style: italic; }
   align-items: center;
 }
 .nav__toggle span {
-  width: 24px; height: 1.5px; background: var(--ink);
-  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+  width: 24px; height: 1.5px; background: var(--cream);
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease), background 0.3s var(--ease);
 }
 .nav.is-open .nav__toggle span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
 .nav.is-open .nav__toggle span:nth-child(2) { opacity: 0; }
@@ -348,6 +358,11 @@ em { font-style: italic; }
   .nav.is-open .nav__menu { transform: translateX(0); }
   .nav__link { font-size: var(--step-1); }
   .nav__menu .btn { font-size: var(--step--1); }
+  /* Open overlay is cream — force dark links/toggle regardless of scroll state */
+  .nav.is-open .nav__link { color: var(--ink); }
+  .nav.is-open .nav__link:hover,
+  .nav.is-open .nav__link[aria-current="page"] { color: var(--heather); }
+  .nav.is-open .nav__toggle span { background: var(--ink); }
 }
 
 /* ---------------------------------------------------------------------
@@ -406,19 +421,31 @@ em { font-style: italic; }
 
 /* Compact page hero for inner pages */
 .page-hero {
-  min-height: 60vh;
+  min-height: 74vh;
   display: grid; align-items: center;
   text-align: center; color: var(--cream);
   position: relative; isolation: isolate; overflow: hidden;
-  padding-top: var(--space-2xl);
+  padding-block: calc(var(--space-2xl) + var(--space-md)) var(--space-2xl);
 }
 .page-hero__media {
   position: absolute; inset: 0; z-index: -2;
   background: linear-gradient(120deg, #8b7da3 0%, #b7a9c9 50%, #f7d1b5 110%);
 }
 .page-hero__scrim { position: absolute; inset: 0; z-index: -1; background: rgba(44,42,51,0.32); }
-.page-hero h1 { color: var(--cream); }
-.page-hero p { color: rgba(251,250,248,0.92); margin-inline: auto; }
+.page-hero .script { display: inline-block; margin-bottom: var(--space-md); }
+.page-hero h1 {
+  color: var(--cream);
+  font-size: var(--step-4);        /* smaller than the home hero h1 */
+  line-height: 1.22;               /* looser leading so two lines breathe */
+  max-width: 22ch;
+  margin: 0 auto var(--space-lg);
+}
+.page-hero p {
+  color: rgba(251,250,248,0.92);
+  margin-inline: auto;
+  max-width: 58ch;
+  line-height: 1.75;
+}
 
 /* ---------------------------------------------------------------------
    8. IMAGE PLACEHOLDERS (swap for <img> when photos arrive)
@@ -651,3 +678,46 @@ em { font-style: italic; }
 .mt-md { margin-top: var(--space-md); }
 .divider { width: 64px; height: 1px; background: var(--heather); margin: var(--space-md) 0; }
 .divider.mx-auto { margin-inline: auto; }
+
+/* ---------------------------------------------------------------------
+   18. CUSTOM CURSOR (progressive enhancement — JS adds the element only
+       on fine-pointer, non-reduced-motion devices)
+   --------------------------------------------------------------------- */
+/* Sparkle trail — tiny peach sparkles drift behind the cursor and fade.
+   JS spawns these on mousemove; each removes itself after the animation. */
+.sparkle-trail {
+  position: fixed;
+  top: 0; left: 0;
+  width: 14px; height: 14px;
+  margin: -7px 0 0 -7px;          /* center on the point */
+  background: url("../assets/sparkle-trail.png") center / contain no-repeat;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: sparkleTrail 0.7s var(--ease) forwards;
+}
+@keyframes sparkleTrail {
+  0%   { opacity: 0;    transform: scale(0.2) rotate(0deg); }
+  30%  { opacity: 0.4; }
+  100% { opacity: 0;    transform: scale(0.85) rotate(30deg) translateY(7px); }
+}
+
+/* Pretty icon cursors — pure CSS, work even without JS.
+   Sparkle by default; heart over anything clickable. */
+html { cursor: url("../assets/cursor-sparkle.png") 10 10, auto; }
+a, button, .tile, .card, label, summary, [role="button"] {
+  cursor: url("../assets/cursor-heart.png") 10 9, pointer;
+}
+select { cursor: url("../assets/cursor-heart.png") 10 9, pointer; }
+input:not([type="checkbox"]):not([type="radio"]), textarea { cursor: text; }
+
+/* Extra hover delight */
+.service { transition: background 0.45s var(--ease); }
+.service:hover { background: rgba(183, 169, 201, 0.10); }
+.service:hover h3 { color: var(--heather); }
+.stat__num { transition: color 0.4s var(--ease), transform 0.4s var(--ease); }
+.stat:hover .stat__num,
+div:hover > .stat__num { color: var(--lavender); }
+.step:hover .step__num { transform: translateY(-4px); transition: transform 0.4s var(--ease); }
+.nav__brand:hover span { color: var(--lavender); }

@@ -95,4 +95,37 @@
   /* ---- 6. Footer year ------------------------------------------------ */
   const yearEl = document.querySelector("[data-year]");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ---- 7. Custom cursor follower (enhancement) ---------------------- */
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (finePointer && !prefersReduced) {
+    // The pretty icon cursors are pure CSS. This adds a sparkle trail:
+    // small peach sparkles drift behind the cursor and fade out.
+    let lastX = null, lastY = null;
+    const minGap = 38; // px of travel between sparkles — sparser = classier
+
+    const spawn = (x, y) => {
+      const s = document.createElement("span");
+      s.className = "sparkle-trail";
+      const size = 6 + Math.random() * 6;          // 6–12px, daintier
+      s.style.left = x + (Math.random() * 10 - 5) + "px";
+      s.style.top  = y + (Math.random() * 10 - 5) + "px";
+      s.style.width = s.style.height = size + "px";
+      s.style.marginLeft = s.style.marginTop = -size / 2 + "px";
+      document.body.appendChild(s);
+      s.addEventListener("animationend", () => s.remove());
+    };
+
+    window.addEventListener("mousemove", (e) => {
+      if (lastX === null) { lastX = e.clientX; lastY = e.clientY; }
+      const dx = e.clientX - lastX, dy = e.clientY - lastY;
+      if (Math.hypot(dx, dy) >= minGap) {
+        spawn(e.clientX, e.clientY);
+        lastX = e.clientX;
+        lastY = e.clientY;
+      }
+    }, { passive: true });
+  }
 })();

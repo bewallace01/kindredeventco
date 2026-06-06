@@ -1,4 +1,4 @@
-# Nezzie Events — Site Architecture
+# Kindred Event Collective — Site Architecture
 
 ## 1. Stack Decision
 

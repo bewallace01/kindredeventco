@@ -1,4 +1,4 @@
-# Nezzie Events — Website
+# Kindred Event Collective — Website
 
 Boutique luxury wedding-planning website for a Charlotte, NC studio. Static HTML/CSS/JS, no build step.
 

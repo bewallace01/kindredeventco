@@ -1,4 +1,4 @@
-# Nezzie Events — Content & Voice Guide
+# Kindred Event Collective — Content & Voice Guide
 
 A reference for writing and replacing copy so the site stays consistent. **All current copy is placeholder** built around the "Nezzie" name — swap in real details before launch (see checklist at bottom).
 
@@ -47,10 +47,10 @@ A reference for writing and replacing copy so the site stays consistent. **All c
 Replace every item below before launch. Search the codebase for the bracketed terms.
 
 **Identity**
-- [ ] "Nezzie" / "Nezzie Events" → real business & planner name (find/replace across all `.html`, plus `<title>`, JSON-LD, footer)
-- [ ] `hello@nezzieevents.com` → real email (appears in header CTA targets, contact, footer)
+- [x] Business name finalized: **Kindred Event Collective**. Founder name: **Nezzie** (used in About + testimonials).
+- [ ] `hello@kindredeventcollective.com` → confirm/replace with real email (appears in header CTA targets, contact, footer)
 - [ ] `(704) 555-0100` / `+17045550100` → real phone
-- [ ] `https://www.nezzieevents.com/` → real domain (canonical + OG tags, all pages)
+- [ ] `https://www.kindredeventcollective.com/` → real domain (canonical + OG tags, all pages)
 - [ ] Instagram / Pinterest `href="#"` → real social URLs
 
 **Copy**
