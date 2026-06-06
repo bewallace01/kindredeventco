@@ -70,24 +70,59 @@
     });
   });
 
-  /* ---- 5. Contact form (front-end demo handler) --------------------- */
+  /* ---- 5. Contact form (Formspree AJAX submission) ----------------- */
   const form = document.querySelector("[data-contact-form]");
   if (form) {
     const success = document.querySelector("[data-form-success]");
-    form.addEventListener("submit", (e) => {
+    const errorBox = document.querySelector("[data-form-error]");
+    const submitBtn = form.querySelector('[type="submit"]');
+    const submitLabel = submitBtn ? submitBtn.textContent : "";
+
+    const reveal = (el) => {
+      if (!el) return;
+      el.classList.add("is-visible");
+      el.setAttribute("tabindex", "-1");
+      el.focus();
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+    };
+
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
-      // NOTE: wire this to a real backend / form service (Formspree,
-      // Vercel serverless function, or email API) before launch. See docs/TASKS.md.
-      form.reset();
-      if (success) {
-        success.classList.add("is-visible");
-        success.setAttribute("tabindex", "-1");
-        success.focus();
-        success.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      const endpoint = form.getAttribute("action");
+      // Guard: don't attempt a submit while the placeholder endpoint is still in place.
+      if (!endpoint || endpoint.indexOf("YOUR_FORM_ID") !== -1) {
+        console.warn("Contact form: set the Formspree endpoint (action) in contact.html before going live.");
+        reveal(errorBox);
+        return;
+      }
+
+      if (errorBox) errorBox.classList.remove("is-visible");
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending…";
+      }
+
+      try {
+        const res = await fetch(endpoint, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" },
+        });
+        if (!res.ok) throw new Error("Form submission failed: " + res.status);
+        form.reset();
+        reveal(success);
+      } catch (err) {
+        reveal(errorBox);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = submitLabel;
+        }
       }
     });
   }

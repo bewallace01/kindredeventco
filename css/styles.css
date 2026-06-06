@@ -629,6 +629,15 @@ em { font-style: italic; }
   display: none;
 }
 .form-success.is-visible { display: block; }
+.form-error {
+  background: #F4DAD3; color: var(--ink);
+  border-left: 3px solid #B5685A;
+  padding: var(--space-sm) var(--space-md); border-radius: var(--radius);
+  margin-bottom: var(--space-md);
+  display: none;
+}
+.form-error.is-visible { display: block; }
+.form-error a { color: inherit; text-decoration: underline; }
 
 /* ---------------------------------------------------------------------
    15. FOOTER

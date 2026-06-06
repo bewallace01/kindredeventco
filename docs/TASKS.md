@@ -34,9 +34,9 @@ Owner: Nezzie / Bailey
 - [ ] Hero image: `loading="eager"` + `fetchpriority="high"`
 
 ## Phase 3 — Functionality
-- [ ] Connect contact form to a real service (Formspree / Vercel serverless function / email API)
-- [ ] Add spam protection (honeypot or service-native)
-- [ ] Test form submission end-to-end + confirmation email
+- [x] Connect contact form to **Formspree** (AJAX submit in `js/main.js`) — paste real form ID into the `action` in `contact.html` (currently `YOUR_FORM_ID`)
+- [x] Add spam protection (`_gotcha` honeypot field) — enable reCAPTCHA in Formspree dashboard for extra coverage if desired
+- [ ] Test form submission end-to-end + confirmation email (after pasting the real form ID)
 - [ ] Add favicon, apple-touch-icon, web manifest
 
 ## Phase 4 — SEO & Analytics

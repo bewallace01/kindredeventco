@@ -60,7 +60,15 @@
               <strong>Thank you!</strong> Your inquiry is on its way. We’ll be in touch within two business days.
             </div>
 
-            <form class="form" data-contact-form novalidate>
+            <div class="form-error" data-form-error role="alert">
+              <strong>Hmm, that didn’t send.</strong> Please try again, or email us directly at <a href="mailto:hello@kindredeventcollective.com">hello@kindredeventcollective.com</a>.
+            </div>
+
+            <!-- Formspree: replace YOUR_FORM_ID below with the ID from your Formspree form (https://formspree.io). -->
+            <form class="form" data-contact-form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+              <!-- Honeypot: bots fill this hidden field; Formspree silently drops those submissions. -->
+              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;" />
+              <input type="hidden" name="_subject" value="New wedding inquiry — Kindred Event Collective" />
               <div class="form__row form__row--2">
                 <div class="field">
                   <label for="firstName">First name *</label>
