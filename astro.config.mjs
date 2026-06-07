@@ -7,8 +7,10 @@ import sanity from '@sanity/astro';
 // content. See README for the Studio URL and the optional auto-rebuild webhook.
 export default defineConfig({
   site: 'https://www.kindredeventcollective.com',
+  // Clean, extensionless URLs (/about). Astro emits about.html; Vercel's
+  // cleanUrls serves it at /about and redirects /about.html → /about.
+  trailingSlash: 'never',
   build: {
-    // Output about.html, services.html, etc. — preserves the original URLs.
     format: 'file',
   },
   integrations: [
