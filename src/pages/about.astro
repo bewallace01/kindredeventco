@@ -1,40 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Nezzie | Charlotte Wedding Planner &amp; Designer</title>
-  <meta name="description" content="Meet Nezzie — the Charlotte-based wedding planner behind Kindred Event Collective. Our story, our philosophy, and the boutique approach that makes planning feel effortless." />
-  <meta name="theme-color" content="#8B7DA3" />
-  <link rel="canonical" href="https://www.kindredeventcollective.com/about.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="About Nezzie | Charlotte Wedding Planner" />
-  <meta property="og:description" content="The story and philosophy behind Kindred Event Collective, a boutique wedding planning studio in Charlotte, NC." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=Pinyon+Script&family=Jost:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <header class="site-header">
-    <div class="container">
-      <nav class="nav" aria-label="Primary">
-        <a class="nav__brand" href="index.html">Kindred <span>Event Collective</span></a>
-        <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu"><span></span><span></span><span></span></button>
-        <ul class="nav__menu" id="nav-menu">
-          <li><a class="nav__link" href="index.html">Home</a></li>
-          <li><a class="nav__link" href="about.html" aria-current="page">About</a></li>
-          <li><a class="nav__link" href="services.html">Services</a></li>
-          <li><a class="nav__link" href="portfolio.html">Weddings</a></li>
-          <li><a class="nav__link" href="testimonials.html">Love Notes</a></li>
-          <li><a class="btn btn--primary" href="contact.html">Inquire</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="About Nezzie | Charlotte Wedding Planner &amp; Designer"
+  description="Meet Nezzie — the Charlotte-based wedding planner behind Kindred Event Collective. Our story, our philosophy, and the boutique approach that makes planning feel effortless."
+  canonical="https://www.kindredeventcollective.com/about.html"
+  ogTitle="About Nezzie | Charlotte Wedding Planner"
+  ogDescription="The story and philosophy behind Kindred Event Collective, a boutique wedding planning studio in Charlotte, NC."
+  active="about"
+>
   <main id="main">
 
     <!-- PAGE HERO -->
@@ -120,34 +94,4 @@
     </section>
 
   </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer__grid">
-        <div>
-          <p class="footer__brand">Kindred Event Collective<span class="script">timeless celebrations</span></p>
-          <p style="margin-top:1rem;max-width:36ch;">Boutique wedding planning &amp; design based in Charlotte, North Carolina — serving couples across the Carolinas and beyond.</p>
-        </div>
-        <div>
-          <h4>Explore</h4>
-          <nav class="footer__links" aria-label="Footer">
-            <a href="about.html">About</a><a href="services.html">Services</a><a href="portfolio.html">Weddings</a><a href="testimonials.html">Love Notes</a><a href="contact.html">Inquire</a>
-          </nav>
-        </div>
-        <div>
-          <h4>Connect</h4>
-          <div class="footer__links">
-            <a href="mailto:hello@kindredeventcollective.com">hello@kindredeventcollective.com</a><a href="tel:+17045550100">(704) 555-0100</a><a href="#" rel="noopener">Instagram</a><a href="#" rel="noopener">Pinterest</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer__bottom">
-        <span>&copy; <span data-year>2026</span> Kindred Event Collective. All rights reserved.</span>
-        <span>Charlotte, North Carolina</span>
-      </div>
-    </div>
-  </footer>
-
-  <script src="js/main.js" defer></script>
-</body>
-</html>
+</Layout>

@@ -34,14 +34,23 @@ Owner: Nezzie / Bailey
 - [ ] Hero image: `loading="eager"` + `fetchpriority="high"`
 
 ## Phase 3 — Functionality
-- [x] Connect contact form to **Formspree** (AJAX submit in `js/main.js`) — paste real form ID into the `action` in `contact.html` (currently `YOUR_FORM_ID`)
+- [x] Connect contact form to **Formspree** (AJAX submit in `public/js/main.js`) — paste real form ID into the `action` in `src/pages/contact.astro` (currently `YOUR_FORM_ID`)
 - [x] Add spam protection (`_gotcha` honeypot field) — enable reCAPTCHA in Formspree dashboard for extra coverage if desired
 - [ ] Test form submission end-to-end + confirmation email (after pasting the real form ID)
 - [ ] Add favicon, apple-touch-icon, web manifest
 
+## Phase 3.5 — Content management (Sanity CMS)
+- [x] Migrate site to **Astro**, content pulled from Sanity at build time
+- [x] Sanity project (`ixmyxkfg` / `production`, public) + schemas: `wedding`, `testimonial`
+- [x] Hosted Studio for Nezzie: https://kindred-event-collective.sanity.studio/
+- [x] Seed testimonials (published) + weddings (drafts, awaiting photos)
+- [ ] **Nezzie:** add cover photo + gallery to each wedding in the Studio, then **Publish**
+- [ ] **Nezzie:** replace placeholder testimonials with real, consented quotes
+- [ ] Auto-rebuild on publish: add a Sanity webhook → Vercel Deploy Hook
+
 ## Phase 4 — SEO & Analytics
 - [ ] Replace placeholder domain in canonical + OG tags
-- [ ] Create `sitemap.xml` and `robots.txt`
+- [x] Create `sitemap.xml` and `robots.txt` (in `public/`)
 - [ ] Verify unique title/description per page
 - [ ] Add real OG share image (1200×630)
 - [ ] Set up privacy-friendly analytics (Plausible / Fathom)

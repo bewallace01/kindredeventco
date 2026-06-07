@@ -5,9 +5,16 @@ Thumbs.db
 .idea/
 .vscode/
 
-# Logs / deps (in case tooling is added later)
+# Logs / deps
 node_modules/
 *.log
+
+# Astro build output & cache
+dist/
+.astro/
+
+# Vercel
+.vercel/
 
 # Local env / secrets
 .env

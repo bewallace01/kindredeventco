@@ -1,0 +1,116 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getWeddings, urlFor } from '../lib/sanity';
+
+const weddings = await getWeddings();
+
+/** Build the image list (cover first, then gallery) for a wedding's lightbox. */
+function lightboxImages(w: any) {
+  const imgs = [w.coverImage, ...(w.gallery ?? [])].filter((img: any) => img?.asset);
+  return imgs.map((img: any) => ({
+    src: urlFor(img).width(1600).fit('max').auto('format').url(),
+    alt: img.alt || `${w.coupleNames} — Kindred Event Collective wedding`,
+  }));
+}
+
+function coverSrc(w: any) {
+  const b = urlFor(w.coverImage).fit('crop').auto('format');
+  return w.featured
+    ? b.width(1280).height(720).url()
+    : b.width(820).height(1093).url();
+}
+
+function captionLocation(w: any) {
+  return [w.venue, w.location].filter(Boolean).join(' · ');
+}
+---
+<Layout
+  title="Weddings &amp; Portfolio | Kindred Event Collective, Charlotte NC"
+  description="A gallery of real weddings planned and designed by Kindred Event Collective across Charlotte, Lake Norman, Asheville, and the Carolinas. Explore our portfolio."
+  canonical="https://www.kindredeventcollective.com/portfolio.html"
+  ogTitle="Weddings &amp; Portfolio | Kindred Event Collective"
+  ogDescription="Real weddings planned and designed by Kindred Event Collective in Charlotte and across the Carolinas."
+  active="portfolio"
+>
+  <main id="main">
+
+    <section class="page-hero" aria-label="Portfolio">
+      <div class="page-hero__media"></div>
+      <div class="page-hero__scrim"></div>
+      <div class="container container--narrow">
+        <span class="script" style="color:var(--peach);font-size:var(--step-3);">real celebrations</span>
+        <h1>Our weddings</h1>
+        <p class="lead">A collection of days we’ve had the privilege to design and direct — each one entirely its own.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="gallery-h">
+      <div class="container">
+        <h2 id="gallery-h" class="visually-hidden">Wedding gallery</h2>
+
+        {weddings.length === 0 ? (
+          <div class="text-center mx-auto reveal" style="max-width:50ch;">
+            <span class="script" style="color:var(--heather);font-size:var(--step-2);">coming soon</span>
+            <p class="lead">Our gallery is being curated. Beautiful celebrations are on their way — please check back shortly.</p>
+            <a class="btn btn--ghost mt-md" href="contact.html">Inquire About Your Wedding</a>
+          </div>
+        ) : (
+          <div class="gallery">
+            {weddings.map((w: any, i: number) => (
+              <button
+                type="button"
+                class={`tile reveal${w.featured ? ' tile--lg' : ''}${i % 3 === 1 ? ' reveal-delay-1' : i % 3 === 2 ? ' reveal-delay-2' : ''}`}
+                data-lightbox-open
+                data-images={JSON.stringify(lightboxImages(w))}
+                aria-label={`View photos from ${w.coupleNames}’s wedding`}
+              >
+                <div class={`ph ${w.featured ? 'ph--pano' : 'ph--tall'}`}>
+                  <img
+                    src={coverSrc(w)}
+                    alt={w.coverImage?.alt || `${w.coupleNames} wedding`}
+                    loading={i < 2 ? 'eager' : 'lazy'}
+                    decoding="async"
+                  />
+                </div>
+                <div class="tile__caption">
+                  <span class="script">{w.coupleNames}</span>{captionLocation(w) && <><br /><span>{captionLocation(w)}</span></>}
+                </div>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- AS FEATURED / PRESS strip -->
+    <section class="section--tight section--alt" aria-label="Featured in">
+      <div class="container text-center reveal">
+        <span class="eyebrow">As Featured In</span>
+        <p class="lead mx-auto" style="max-width:50ch;">Carolina Bride · Style Me Pretty · The Knot · Southern Weddings <em>(placeholder — update with real press)</em></p>
+      </div>
+    </section>
+
+    <section class="cta-band" aria-labelledby="cta-h">
+      <div class="cta-band__media"></div>
+      <div class="cta-band__scrim"></div>
+      <div class="container container--narrow">
+        <span class="eyebrow" style="color:var(--peach);">Your Turn</span>
+        <h2 id="cta-h">Picture your day here.</h2>
+        <p>We’d be honored to add your celebration to this gallery. Let’s start designing it.</p>
+        <a class="btn btn--light" href="contact.html">Inquire Today</a>
+      </div>
+    </section>
+
+    <!-- Lightbox (shared) -->
+    <div class="lightbox" data-lightbox hidden role="dialog" aria-modal="true" aria-label="Wedding photo gallery">
+      <button class="lightbox__btn lightbox__close" data-lightbox-close aria-label="Close gallery">&times;</button>
+      <button class="lightbox__btn lightbox__prev" data-lightbox-prev aria-label="Previous photo">&#8249;</button>
+      <figure class="lightbox__stage">
+        <img class="lightbox__img" data-lightbox-img src="" alt="" />
+        <figcaption class="lightbox__count" data-lightbox-count></figcaption>
+      </figure>
+      <button class="lightbox__btn lightbox__next" data-lightbox-next aria-label="Next photo">&#8250;</button>
+    </div>
+
+  </main>
+</Layout>

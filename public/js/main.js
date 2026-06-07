@@ -163,4 +163,71 @@
       }
     }, { passive: true });
   }
+
+  /* ---- 8. Portfolio lightbox (per-wedding gallery) ------------------ */
+  const lightbox = document.querySelector("[data-lightbox]");
+  const openers = document.querySelectorAll("[data-lightbox-open]");
+  if (lightbox && openers.length) {
+    const imgEl = lightbox.querySelector("[data-lightbox-img]");
+    const countEl = lightbox.querySelector("[data-lightbox-count]");
+    const btnPrev = lightbox.querySelector("[data-lightbox-prev]");
+    const btnNext = lightbox.querySelector("[data-lightbox-next]");
+    const btnClose = lightbox.querySelector("[data-lightbox-close]");
+    let images = [];
+    let index = 0;
+    let lastFocused = null;
+
+    const render = () => {
+      const img = images[index];
+      if (!img) return;
+      imgEl.src = img.src;
+      imgEl.alt = img.alt || "";
+      const multiple = images.length > 1;
+      countEl.textContent = multiple ? index + 1 + " / " + images.length : "";
+      btnPrev.hidden = !multiple;
+      btnNext.hidden = !multiple;
+    };
+
+    const open = (opener) => {
+      try {
+        images = JSON.parse(opener.getAttribute("data-images") || "[]");
+      } catch (_) {
+        images = [];
+      }
+      if (!images.length) return;
+      index = 0;
+      lastFocused = opener;
+      render();
+      lightbox.hidden = false;
+      document.body.style.overflow = "hidden";
+      btnClose.focus();
+    };
+
+    const close = () => {
+      lightbox.hidden = true;
+      document.body.style.overflow = "";
+      imgEl.src = "";
+      if (lastFocused) lastFocused.focus();
+    };
+
+    const step = (dir) => {
+      if (!images.length) return;
+      index = (index + dir + images.length) % images.length;
+      render();
+    };
+
+    openers.forEach((o) => o.addEventListener("click", () => open(o)));
+    btnClose.addEventListener("click", close);
+    btnPrev.addEventListener("click", () => step(-1));
+    btnNext.addEventListener("click", () => step(1));
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) close();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (lightbox.hidden) return;
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowLeft") step(-1);
+      else if (e.key === "ArrowRight") step(1);
+    });
+  }
 })();

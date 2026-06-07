@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getTestimonials } from '../lib/sanity';
+
+const testimonials = await getTestimonials();
+const featured = testimonials.find((t: any) => t.featured) ?? testimonials[0];
+const rest = testimonials.filter((t: any) => t._id !== featured?._id);
+
+function cite(t: any) {
+  return [t.coupleNames, t.location].filter(Boolean).join(' · ');
+}
+function stars(n: number) {
+  const count = Math.max(0, Math.min(5, n || 5));
+  return '★'.repeat(count);
+}
+const delays = ['', ' reveal-delay-1', ' reveal-delay-2'];
+---
+<Layout
+  title="Love Notes &amp; Testimonials | Kindred Event Collective"
+  description="Kind words from couples who celebrated with Kindred Event Collective. Read testimonials from weddings across Charlotte and the Carolinas."
+  canonical="https://www.kindredeventcollective.com/testimonials.html"
+  ogTitle="Love Notes &amp; Testimonials | Kindred Event Collective"
+  ogDescription="What couples say about planning their wedding with Kindred Event Collective in Charlotte, NC."
+  active="testimonials"
+>
+  <main id="main">
+
+    <section class="page-hero" aria-label="Testimonials">
+      <div class="page-hero__media"></div>
+      <div class="page-hero__scrim"></div>
+      <div class="container container--narrow">
+        <span class="script" style="color:var(--peach);font-size:var(--step-3);">kind words</span>
+        <h1>Love notes</h1>
+        <p class="lead">The greatest honor of this work is the trust our couples place in us. Here’s what they’ve shared.</p>
+      </div>
+    </section>
+
+    {featured && (
+      <!-- FEATURE QUOTE -->
+      <section class="section" aria-labelledby="feature-h">
+        <div class="container">
+          <h2 id="feature-h" class="visually-hidden">Featured testimonial</h2>
+          <figure class="quote reveal">
+            <span class="quote__mark" aria-hidden="true">&ldquo;</span>
+            <blockquote>{featured.quote}</blockquote>
+            <cite>{cite(featured)}</cite>
+          </figure>
+        </div>
+      </section>
+    )}
+
+    {rest.length > 0 && (
+      <!-- GRID OF TESTIMONIALS -->
+      <section class="section section--alt" aria-labelledby="all-h">
+        <div class="container">
+          <h2 id="all-h" class="visually-hidden">All testimonials</h2>
+          <div class="grid grid--3">
+            {rest.map((t: any, i: number) => (
+              <figure class={`testimonial-card reveal${delays[i % 3]}`}>
+                <div class="stars" aria-label={`${Math.max(1, Math.min(5, t.rating || 5))} out of 5 stars`}>{stars(t.rating)}</div>
+                <blockquote>&ldquo;{t.quote}&rdquo;</blockquote>
+                <cite>{cite(t)}</cite>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="cta-band" aria-labelledby="cta-h">
+      <div class="cta-band__media"></div>
+      <div class="cta-band__scrim"></div>
+      <div class="container container--narrow">
+        <span class="eyebrow" style="color:var(--peach);">Join Them</span>
+        <h2 id="cta-h">Your love note starts here.</h2>
+        <p>Let’s create a day worth writing home about.</p>
+        <a class="btn btn--light" href="contact.html">Begin Your Story</a>
+      </div>
+    </section>
+
+  </main>
+</Layout>
